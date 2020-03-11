@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  #PHP Service
+  app:
+    build: .
+    container_name: app
+    environment:
+    #   - DB_HOST=db
+    #   - DB_DATABASE=laravel
+    #   - DB_USERNAME=root
+    #   - DB_PASSWORD=root
+    volumes:
+      - .:/var/www
+    networks:
+      - app-networks
+    depends_on:
+      - db
+      - redis
+
+  #Nginx Service
+  nginx:
+    build: .docker/nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    environment:
+      - APP_HOST_NAME=app
+      - APP_HOST_PORT=9000
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+    networks:
+      - app-networks
+    depends_on:
+      - app
+
+  #MySQL Service
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    ports:
+      - "33060:3306"
+    volumes:
+      - .docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=laravel
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - app-networks
+
+  #Redis Service
+  redis:
+    image: redis:alpine
+    container_name: redis
+    expose:
+      - 6379
+    networks:
+      - app-networks
+
+#Docker Networks
+networks:
+  app-networks:
+    driver: bridge
