@@ -20,8 +20,8 @@ RUN ln -s public html
 #RUN php artisan migrate
 
 EXPOSE 9000
-COPY ./entrypoint-app.sh /entrypoint.sh
+#COPY ./entrypoint-app.sh /entrypoint.sh
 # Converte o arquivo para o formato Unix -> CRLF para LF
-RUN dos2unix /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+#RUN dos2unix /entrypoint.sh
+#RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["php-fpm"]
