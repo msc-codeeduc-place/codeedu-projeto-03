@@ -16,7 +16,7 @@ git checkout develop
 ```
 Altere o número entre colchetes na linha abaixo
 ```
-Essa é a [1]ª execução dessa tarefa
+Essa é a [2]ª execução dessa tarefa
 ```
 Execute o comando git commit -m
 ```
