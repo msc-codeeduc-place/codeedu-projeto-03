@@ -16,11 +16,11 @@ git checkout develop
 ```
 Altere o número entre colchetes na linha abaixo
 ```
-Essa é a [1]ª execução dessa tarefa
+Essa é a [2]ª execução dessa tarefa
 ```
-Execute o comando git commit -m
+Execute o comando git commit -am
 ```
-git commit -m "Esse é um novo teste"
+git commit -am "Esse é um novo teste"
 ```
 Suba as alteração para o github
 ```
